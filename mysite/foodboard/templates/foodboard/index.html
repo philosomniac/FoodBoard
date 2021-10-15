@@ -5,11 +5,30 @@
 {% block content %}
 
 {% if recipe_list %}
-<ul>
+{% comment %} <ul>
     {% for recipe in recipe_list %}
     <li><a href="{% url 'foodboard:detail' recipe.id %}"> {{recipe.name}}</a></li>
     {% endfor %}
-</ul>
+</ul> {% endcomment %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Recipes:</h2>
+        </div>
+    </div>
+    <div class="row row-cols-2">
+        {% for recipe in recipe_list %}
+        <div class="col">
+            <a href="{% url 'foodboard:detail' recipe.id %}"> {{recipe.name}}</a>
+            <div class="recipe_thumbnail">
+                <img src="{{recipe.img_url}}" alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
 {% else %}
 <p>No recipes are avaiable.</p>
 {% endif %}

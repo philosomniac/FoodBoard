@@ -13,7 +13,7 @@ class IndexView(generic.ListView):
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
-        return Recipe.objects.all()[:20]
+        return Recipe.objects.all()[:3]
 
 
 class DetailView(generic.DetailView):

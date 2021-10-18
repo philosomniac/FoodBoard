@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -34,3 +35,8 @@ class IngredientUsage(models.Model):
     unit = models.CharField(max_length=20)
     price = models.FloatField(null=True)
     modifier = models.CharField(max_length=20, null=True)
+
+
+class CookEvent(models.Model):
+    date = models.DateField(verbose_name="cook date")
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)

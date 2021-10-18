@@ -19,7 +19,11 @@ class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', "is_vegetarian", "is_vegan")
 
 
+class IngredientUsageAdmin(admin.ModelAdmin):
+    list_display = ('recipe', 'ingredient', 'amount', 'unit')
+
+
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(IngredientUsage)
+admin.site.register(IngredientUsage, IngredientUsageAdmin)
 admin.site.register(CookEvent)

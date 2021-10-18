@@ -9,6 +9,9 @@ class Ingredient(models.Model):
     is_vegetarian = models.BooleanField(null=True)
     is_vegan = models.BooleanField(null=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Recipe(models.Model):
     url = models.URLField(unique=True, db_index=True)
@@ -40,3 +43,6 @@ class IngredientUsage(models.Model):
 class CookEvent(models.Model):
     date = models.DateField(verbose_name="cook date")
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return F"{self.recipe.name} on {self.date}"

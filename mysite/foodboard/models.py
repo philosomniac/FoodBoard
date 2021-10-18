@@ -39,6 +39,9 @@ class IngredientUsage(models.Model):
     price = models.FloatField(null=True)
     modifier = models.CharField(max_length=20, null=True)
 
+    def __str__(self) -> str:
+        return F"Amount: {self.amount} | unit: {self.unit} | ingredient: {self.ingredient.name} | recipe: {self.recipe.name}"
+
 
 class CookEvent(models.Model):
     date = models.DateField(verbose_name="cook date")

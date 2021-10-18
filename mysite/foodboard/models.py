@@ -51,6 +51,8 @@ class IngredientUsage(models.Model):
 
 
 class CookEvent(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, null=True)
     date = models.DateField(verbose_name="cook date")
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 

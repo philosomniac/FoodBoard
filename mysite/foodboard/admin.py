@@ -2,6 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Recipe
+from .models import Ingredient
+from .models import IngredientUsage
+from .models import CookEvent
 
 
 class RecipeAdmin(admin.ModelAdmin):
@@ -13,3 +16,6 @@ class RecipeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Ingredient)
+admin.site.register(IngredientUsage)
+admin.site.register(CookEvent)

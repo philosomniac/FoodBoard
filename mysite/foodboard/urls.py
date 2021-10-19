@@ -7,5 +7,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('plan/', views.cook_events, name='plan'),
-    path('ingredients/', views.IngredientView.as_view(), name='ingredients')
+    path('plan/<int:year>/<int:month>/<int:day>/',
+         views.cook_events, name='plan_from_date'),
+    path('ingredients/', views.IngredientView.as_view(), name='ingredients'),
 ]

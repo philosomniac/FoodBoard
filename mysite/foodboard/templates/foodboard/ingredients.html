@@ -1,0 +1,33 @@
+{% extends "foodboard/base.html" %}
+
+{% block title %}Here are your ingredients:{% endblock title %}
+
+{% block content %}
+
+{% if ingredient_list %}
+{% comment %} <ul>
+    {% for recipe in recipe_list %}
+    <li><a href="{% url 'foodboard:detail' recipe.id %}"> {{recipe.name}}</a></li>
+    {% endfor %}
+</ul> {% endcomment %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Ingredients:</h2>
+        </div>
+    </div>
+    <div class="row row-cols-2">
+        {% for ingredient in ingredient_list %}
+        <div>
+            {{ ingredient.name}}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% else %}
+<p>No ingredients present</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "foodboard/base.html" %}
+
+{% block title %}Here are your cook events:{% endblock title %}
+
+{% block content %}
+
+{% if cook_events %}
+{% comment %} <ul>
+    {% for recipe in recipe_list %}
+    <li><a href="{% url 'foodboard:detail' recipe.id %}"> {{recipe.name}}</a></li>
+    {% endfor %}
+</ul> {% endcomment %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Cooking schedule:</h2>
+        </div>
+    </div>
+    <div class="row row-cols-2">
+        {% for event in cook_events %}
+        <div>
+            {{ event.date}}
+        </div>
+        <div>
+            {{ event.recipe}}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% else %}
+<p>No cook events present</p>
+{% endif %}
+
+{% endblock content %}

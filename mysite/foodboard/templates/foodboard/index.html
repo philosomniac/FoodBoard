@@ -18,7 +18,7 @@
     </div>
     <div class="row row-cols-2">
         {% for recipe in recipe_list %}
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 10rem;">
             <img src="{{recipe.img_url}}" class="card-img-top">
             <div class="card-body">
                 <h5 class="card-title">{{recipe.name}}</h5>
@@ -29,9 +29,10 @@
         </div>
 
     </div>
+</div>
 
-    {% else %}
-    <p>No recipes are avaiable.</p>
-    {% endif %}
+{% else %}
+<p>No recipes are avaiable.</p>
+{% endif %}
 
-    {% endblock content %}
+{% endblock content %}

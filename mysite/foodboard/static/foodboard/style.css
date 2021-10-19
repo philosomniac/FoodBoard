@@ -5,7 +5,6 @@ li a{
 .box{
     display:flex;
     flex-flow: row wrap;
-    /* align-items: center; */
     justify-content: space-around;
 
 
@@ -25,7 +24,7 @@ li a{
     border: 1px solid #ddd;
     border-radius: 4px;
     padding:5px;
-    /* width:120px; */
+    width:120px;
 }
 .col{
     border: 1px solid blue;

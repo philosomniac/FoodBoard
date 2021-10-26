@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, date
 from django.db.models.base import Model
-from django.shortcuts import get_list_or_404, render, get_object_or_404
+from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
@@ -8,6 +8,7 @@ from django.views import generic
 from django.utils import timezone
 from .models import CookEvent, Ingredient, Recipe
 from .forms import CookEventForm
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -53,15 +54,27 @@ def cook_events(request, year=0, month=0, day=0):
 
 def cook_event(request, pk=None):
     if request.method == 'POST':
-        cook_event = get_object_or_404(CookEvent, pk=pk)
+        try:
+            cook_event = CookEvent.objects.get(pk=pk)
+        except ObjectDoesNotExist:
+            cook_event = CookEvent()
         form = CookEventForm(request.POST, instance=cook_event)
         if form.is_valid():
             form.save()
-            HttpResponseRedirect('foodboard/cook_events.html')
+            return redirect('foodboard:plan')
 
-    else:
+    elif pk is not None:
         event = get_object_or_404(CookEvent, pk=pk)
         form = CookEventForm(instance=event)
+    else:
+        if 'year' in request.GET:
+            year = int(request.GET['year'])
+            month = int(request.GET['month'])
+            day = int(request.GET['day'])
+            d = date(year, month, day)
+            form = CookEventForm(initial={'date': d})
+        else:
+            form = CookEventForm()
 
     return render(request, 'foodboard/cook_event.html', {'form': form, 'pk': pk})
 

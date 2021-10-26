@@ -3,10 +3,14 @@
 {% block title %}Edit Cook Event{% endblock title %}
 
 {% block content %}
+{% if pk %}
 <form action="{% url 'foodboard:cook_event_save' pk=pk %}" method="post">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="Submit">
-</form>
+    {% else %}
+    <form action="{% url 'foodboard:cook_event_add' %}" method="post">
+        {% endif %}
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Submit">
+    </form>
 
-{% endblock content %}
+    {% endblock content %}

@@ -32,6 +32,10 @@
             {% if event.recipe %}
             {{ event.recipe}} <a href="{%url 'foodboard:cook_event' pk=event.pk %}"><i
                     class="bi bi-pencil-square"></i></a>
+            {% else %}
+            (No recipe)<a
+                href="{%url 'foodboard:cook_event_add'%}?year={{ event.date.year }}&month={{ event.date.month }}&day={{ event.date.day}}"><i
+                    class="bi bi-pencil-square"></i></a>
             {% endif %}
         </div>
         {% endfor %}

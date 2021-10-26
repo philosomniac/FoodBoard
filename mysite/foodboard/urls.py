@@ -10,4 +10,6 @@ urlpatterns = [
     path('plan/<int:year>/<int:month>/<int:day>/',
          views.cook_events, name='plan_from_date'),
     path('ingredients/', views.IngredientView.as_view(), name='ingredients'),
+    path('plan/edit/<int:pk>/', views.cook_event, name='cook_event'),
+    path('plan/edit/<int:pk>/save', views.cook_event, name='cook_event_save')
 ]

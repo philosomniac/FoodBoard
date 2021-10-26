@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import CookEvent, Ingredient, Recipe
+from .forms import CookEventForm
 
 # Create your views here.
 
@@ -26,14 +27,14 @@ class DetailView(generic.DetailView):
 
 def cook_events(request, year=0, month=0, day=0):
     if year == 0 or month == 0 or day == 0:
-        startdate = date.today()
+        start_date = date.today()
     else:
-        startdate = datetime(year, month, day)
+        start_date = date(year, month, day)
 
     week = []
-    week.append(startdate)
+    week.append(start_date)
     for day in range(1, 6):
-        week.append(startdate + timedelta(days=day))
+        week.append(start_date + timedelta(days=day))
 
     cook_events = []
 
@@ -44,7 +45,25 @@ def cook_events(request, year=0, month=0, day=0):
         except:
             cook_events.append(CookEvent(date=day))
 
-    return render(request, 'foodboard/cook_events.html', {'cook_events': cook_events})
+    next_date = start_date + timedelta(days=7)
+    prev_date = start_date + timedelta(days=-7)
+
+    return render(request, 'foodboard/cook_events.html', {'cook_events': cook_events, 'current_date': start_date, 'next_date': next_date, 'prev_date': prev_date})
+
+
+def cook_event(request, pk=None):
+    if request.method == 'POST':
+        cook_event = get_object_or_404(CookEvent, pk=pk)
+        form = CookEventForm(request.POST, instance=cook_event)
+        if form.is_valid():
+            form.save()
+            HttpResponseRedirect('foodboard/cook_events.html')
+
+    else:
+        event = get_object_or_404(CookEvent, pk=pk)
+        form = CookEventForm(instance=event)
+
+    return render(request, 'foodboard/cook_event.html', {'form': form, 'pk': pk})
 
 
 class IngredientView(generic.ListView):

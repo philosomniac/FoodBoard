@@ -15,6 +15,13 @@
         <div class="col">
             <h2>Cooking schedule:</h2>
         </div>
+        <div class="col">
+            <a class="btn btn-primary"
+                href="{% url 'foodboard:plan_from_date' year=prev_date.year month=prev_date.month day=prev_date.day %}">Prev</a>
+            Week of: {{current_date}}
+            <a class="btn btn-primary"
+                href="{% url 'foodboard:plan_from_date' year=next_date.year month=next_date.month day=next_date.day %}">Next</a>
+        </div>
     </div>
     <div class="row row-cols-2">
         {% for event in cook_events %}
@@ -22,7 +29,10 @@
             {{ event.date}}
         </div>
         <div>
-            {{ event.recipe}}
+            {% if event.recipe %}
+            {{ event.recipe}} <a href="{%url 'foodboard:cook_event' pk=event.pk %}"><i
+                    class="bi bi-pencil-square"></i></a>
+            {% endif %}
         </div>
         {% endfor %}
     </div>

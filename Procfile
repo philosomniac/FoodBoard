@@ -1,2 +1,2 @@
-web: gunicorn mysite.wsgi
+web: gunicorn foodboard.wsgi
 heroku ps:scale web=1

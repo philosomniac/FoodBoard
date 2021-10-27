@@ -140,4 +140,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-mysite/mysite/settings.py
+# mysite/mysite/settings.py

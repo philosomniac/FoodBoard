@@ -83,7 +83,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
         'USER': 'foodboard_app_account',
-        'PASSWORD': os.environ['FOODBOARD_DB_PASS'],
+        'PASSWORD': os.environ.get('FOODBOARD_DB_PASS'),
         'client_encoding': 'UTF8',
 
     }

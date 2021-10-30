@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'foodboard_db',
-        'HOST': 'localhost',
+        'HOST': '192.168.1.99',
         'PORT': '5432',
         'USER': 'foodboard_app_account',
         'PASSWORD': os.environ.get('FOODBOARD_DB_PASS', ''),

@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from foodboard import views
 
 urlpatterns = [
     path('foodboard/', include('foodboard.urls')),
     path('admin/', admin.site.urls),
+    path('', views.IndexView.as_view(), name="index")
 ]

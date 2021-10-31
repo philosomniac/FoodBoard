@@ -1,6 +1,6 @@
-li a{
+/* li a{
     color:green
-}
+} */
 
 .box{
     display:flex;
@@ -26,6 +26,6 @@ li a{
     padding:5px;
     width:120px;
 }
-.col{
+/* .col{
     border: 1px solid blue;
-}
+} */

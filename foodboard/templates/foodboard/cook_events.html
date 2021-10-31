@@ -17,10 +17,10 @@
         </div>
         <div class="col">
             <a class="btn btn-primary"
-                href="{% url 'foodboard:plan_from_date' year=prev_date.year month=prev_date.month day=prev_date.day %}">Prev</a>
+                href="{% url 'foodboard:plan_from_date' year=prev_date.year month=prev_date.month day=prev_date.day %}">&lt;</a>
             Week of: {{current_date}}
             <a class="btn btn-primary"
-                href="{% url 'foodboard:plan_from_date' year=next_date.year month=next_date.month day=next_date.day %}">Next</a>
+                href="{% url 'foodboard:plan_from_date' year=next_date.year month=next_date.month day=next_date.day %}">&gt;</a>
         </div>
     </div>
     <div class="row row-cols-2">

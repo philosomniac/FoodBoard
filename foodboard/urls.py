@@ -14,8 +14,8 @@ urlpatterns = [
     path('plan/edit/<int:pk>/', views.cook_event, name='cook_event'),
     path('plan/edit/<int:pk>/save', views.cook_event, name='cook_event_save'),
     path('plan/add/', views.cook_event, name='cook_event_add'),
-    path('recipe_list/', views.recipe_list, name='recipe_list'),
-    path('recipe_detail/<int:pk>/', views.recipe_detail, name='recipe_detail'),
+    path('recipe_list/', views.RecipeList.as_view(), name='recipe_list'),
+    path('recipe_detail/<int:pk>/', views.RecipeDetail.as_view(), name='recipe_detail'),
 
 ]
  

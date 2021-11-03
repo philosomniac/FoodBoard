@@ -1,9 +1,17 @@
-from django.urls import path
+from django.urls import include, path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from . import views
+from . import api_views
+
 
 app_name = 'foodboard'
+
+api_urls =[
+    path('recipe_list/', api_views.RecipeList.as_view(), name='recipe_list'),
+    path('recipe_detail/<int:pk>/', api_views.RecipeDetail.as_view(), name='recipe_detail'),
+]
+
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
@@ -14,9 +22,7 @@ urlpatterns = [
     path('plan/edit/<int:pk>/', views.cook_event, name='cook_event'),
     path('plan/edit/<int:pk>/save', views.cook_event, name='cook_event_save'),
     path('plan/add/', views.cook_event, name='cook_event_add'),
-    path('recipe_list/', views.RecipeList.as_view(), name='recipe_list'),
-    path('recipe_detail/<int:pk>/', views.RecipeDetail.as_view(), name='recipe_detail'),
-
+    path('api/', include(api_urls))
 ]
  
 urlpatterns = format_suffix_patterns(urlpatterns)

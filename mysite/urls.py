@@ -16,17 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from foodboard import views
-from foodboard.models import User
-from rest_framework import routers, serializers, viewsets
-
-# class UserSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ['url', 'username', 'email', 'is_staff']
-        
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+from rest_framework import routers
     
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -37,4 +27,6 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name="index"),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('foodboard/api/', include('foodboard.api_urls'))
 ]
+

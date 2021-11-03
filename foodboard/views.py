@@ -1,21 +1,13 @@
-from datetime import datetime, timedelta, date
-from django.db.models.base import Model
-from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.template import loader
-from django.urls import reverse
+from datetime import timedelta, date
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from django.utils import timezone
 from .models import CookEvent, Ingredient, Recipe, User
 from .forms import CookEventForm
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework import permissions
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework.views import APIView
-from foodboard.serializers import UserSerializer, RecipeSerializer
+from .serializers import UserSerializer
+
 
 
 # Create your views here.
@@ -103,78 +95,3 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes =[permissions.IsAuthenticated]
     
-# @api_view(['GET', 'POST'])
-# def recipe_list(request, format=None):
-#     if request.method == 'GET':
-#         recipes = Recipe.objects.all()
-#         serializer = RecipeSerializer(recipes, many=True)
-#         return Response(serializer.data)
-#     elif request.method == 'POST':
-#         serializer = RecipeSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class RecipeList(APIView):
-    def get(self, request, format=None):
-        recipes = Recipe.objects.all()
-        serializer = RecipeSerializer(recipes, many=True)
-        return Response(serializer.data)
-    
-    def post(self, request, format=None):
-        serializer = RecipeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-# @api_view(['GET', 'PUT', 'DELETE'])
-# def recipe_detail(request, pk, format=None):
-#     try:
-#         recipe = Recipe.objects.get(pk=pk)
-#     except Recipe.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-    
-#     if request.method == 'GET':
-#         serializer = RecipeSerializer(recipe)
-#         return Response(serializer.data)
-    
-#     elif request.method == 'PUT':
-#         serializer = RecipeSerializer(recipe, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-#     elif request.method == 'DELETE':
-#         recipe.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class RecipeDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return Recipe.objects.get(pk=pk)
-        except Recipe.DoesNotExist:
-            raise Http404
-        
-    def get(self, request, pk, format=None):
-        recipe = self.get_object(pk)
-        serializer = RecipeSerializer(recipe)
-        return Response(serializer.data)
-    
-    def put(self, request, pk, format=None):
-        recipe = self.get_object(pk)
-        serializer = RecipeSerializer(recipe, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    def delete(self, request, pk, format=None):
-        recipe = self.get_object(pk)
-        recipe.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-        

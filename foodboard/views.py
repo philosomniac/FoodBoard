@@ -8,6 +8,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -41,6 +42,7 @@ class DetailView(generic.DetailView):
     template_name = 'foodboard/detail.html'
 
 
+@login_required
 def cook_events(request, year=0, month=0, day=0):
     if year == 0 or month == 0 or day == 0:
         start_date = date.today()
@@ -67,6 +69,7 @@ def cook_events(request, year=0, month=0, day=0):
     return render(request, 'foodboard/cook_events.html', {'cook_events': cook_events, 'current_date': start_date, 'next_date': next_date, 'prev_date': prev_date})
 
 
+@login_required
 def cook_event(request, pk=None):
     if request.method == 'POST':
         try:

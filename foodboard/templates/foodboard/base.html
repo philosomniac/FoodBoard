@@ -57,10 +57,10 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
                             {% if user.is_authenticated %}
-                            <li><a href="{% url 'profile' %}">Profile</a></li>
-                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                             {% else %}
-                            <a class="text-secondary" href="{% url 'login' %}">Login</a>
+                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                             {% endif %}
 
                         </ul>

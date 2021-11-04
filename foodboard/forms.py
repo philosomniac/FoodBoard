@@ -11,10 +11,12 @@ class CookEventForm(forms.ModelForm):
 
 
 class NewUserForm(UserCreationForm):
+    registration_code = forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = ['username',
+        fields = ['registration_code',
+                  'username',
                   'email',
                   'password1',
                   'password2']

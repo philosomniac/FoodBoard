@@ -6,6 +6,7 @@ from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import permissions
 
 from foodboard.serializers import RecipeSerializer
 
@@ -35,6 +36,8 @@ class RecipeList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class RecipeDetail(APIView):
     def get_object(self, pk):
@@ -60,3 +63,5 @@ class RecipeDetail(APIView):
         recipe = self.get_object(pk)
         recipe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    permission_classes = [permissions.IsAuthenticated]

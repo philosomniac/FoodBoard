@@ -18,6 +18,8 @@ def profile(request):
 def register(request):
     if request.method == 'POST':
         form = NewUserForm(request.POST)
+        if form.data['registration_code'] != '42':
+            return redirect('register')
         if form.is_valid():
             user = form.save()
             login(request, user)

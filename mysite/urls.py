@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from foodboard import views
 from rest_framework import routers
-    
+
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 
@@ -28,5 +28,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('foodboard/api/', include('foodboard.api_urls'))
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
-

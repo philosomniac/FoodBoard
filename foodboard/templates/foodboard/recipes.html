@@ -1,0 +1,33 @@
+{% extends "foodboard/base.html" %}
+
+{% block title %}Recipe Index{% endblock title %}
+
+{% block content %}
+
+{% if recipe_list %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Recipes:</h2>
+        </div>
+    </div>
+    <div class="row row-cols-auto">
+        {% for recipe in recipe_list %}
+        <div class="card p-1 m-1" style="max-width:12rem;">
+            <img src="{{recipe.img_url}}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{recipe.name}}</h5>
+                <p class="card-text">Servings: {{recipe.servings}}</p>
+                <a href="{% url 'foodboard:detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+<p>No recipes are avaiable.</p>
+{% endif %}
+
+{% endblock content %}

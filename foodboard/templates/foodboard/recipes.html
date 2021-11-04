@@ -18,7 +18,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{recipe.name}}</h5>
                 <p class="card-text">Servings: {{recipe.servings}}</p>
-                <a href="{% url 'foodboard:detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
+                <a href="{% url 'foodboard:recipes_detail' recipe.id %}" class="btn btn-primary">View Recipe</a>
             </div>
 
         </div>

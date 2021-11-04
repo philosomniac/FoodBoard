@@ -11,8 +11,6 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
-
 def profile(request):
     return render(request, 'registration/profile.html')
 
@@ -29,17 +27,21 @@ def register(request):
     return render(request=request, template_name='registration/register.html', context={"form": form})
 
 
-class IndexView(generic.ListView):
+class IndexView(generic.TemplateView):
     template_name = 'foodboard/index.html'
+
+
+class RecipeListView(generic.ListView):
+    template_name = 'foodboard/recipes.html'
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
         return Recipe.objects.all()[:10]
 
 
-class DetailView(generic.DetailView):
+class RecipeDetailView(generic.DetailView):
     model = Recipe
-    template_name = 'foodboard/detail.html'
+    template_name = 'foodboard/recipe_detail.html'
 
 
 @login_required

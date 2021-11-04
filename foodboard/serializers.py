@@ -28,6 +28,5 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Recipe
-        fields = ['url', 'name', 'img_url',
-                  'ingredientusage_set',
+        fields = ['url', 'name', 'img_url', 'ingredientusage_set',
                   'servings', 'prep_time', 'cook_time']

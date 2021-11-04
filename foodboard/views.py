@@ -2,15 +2,30 @@ from datetime import timedelta, date
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
 from .models import CookEvent, Ingredient, Recipe, User
-from .forms import CookEventForm
+from .forms import CookEventForm, NewUserForm
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer
-
+from django.contrib.auth import login
 
 
 # Create your views here.
+
+def profile(request):
+    return render(request, 'registration/profile.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('profile')
+
+    form = NewUserForm()
+    return render(request=request, template_name='registration/register.html', context={"form": form})
 
 
 class IndexView(generic.ListView):
@@ -93,5 +108,4 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes =[permissions.IsAuthenticated]
-    
+    permission_classes = [permissions.IsAuthenticated]

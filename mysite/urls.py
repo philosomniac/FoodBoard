@@ -29,4 +29,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('foodboard/api/', include('foodboard.api_urls'))
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', views.profile, name="profile"),
+    path('accounts/register/', views.register, name="register"),
 ]

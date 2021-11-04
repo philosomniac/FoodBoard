@@ -4,8 +4,6 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
-
 class User(AbstractUser):
     class Meta:
         db_table = 'auth_user'
@@ -30,9 +28,6 @@ class Recipe(models.Model):
                                                  verbose_name="prep time (minutes)")
     cook_time = models.PositiveSmallIntegerField(default=0,
                                                  verbose_name="cook time (minutes)")
-
-    # def get_usages(self):
-    #     return self.ingredients.objects.filter
 
     def __str__(self):
         return self.name

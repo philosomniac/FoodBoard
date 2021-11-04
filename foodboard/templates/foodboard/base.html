@@ -45,6 +45,28 @@
                         <a class="nav-link" href="{% url 'foodboard:ingredients' %}">Ingredients</a>
                     </li>
                 </ul>
+                <ul class="nav navbar-nav justify-content-end">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user.is_authenticated %}
+                            {{user.username}}
+                            {% else %}
+                            Not logged in
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile' %}">Profile</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                            <a class="text-secondary" href="{% url 'login' %}">Login</a>
+                            {% endif %}
+
+                        </ul>
+
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>

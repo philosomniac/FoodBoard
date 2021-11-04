@@ -31,6 +31,9 @@ class Recipe(models.Model):
     cook_time = models.PositiveSmallIntegerField(default=0,
                                                  verbose_name="cook time (minutes)")
 
+    # def get_usages(self):
+    #     return self.ingredients.objects.filter
+
     def __str__(self):
         return self.name
 

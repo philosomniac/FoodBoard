@@ -5,30 +5,29 @@
 {% block content %}
 
 {% if cook_events %}
-{% comment %} <ul>
-    {% for recipe in recipe_list %}
-    <li><a href="{% url 'foodboard:detail' recipe.id %}"> {{recipe.name}}</a></li>
-    {% endfor %}
-</ul> {% endcomment %}
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>Cooking schedule:</h2>
+    <div class="row align-items-center">
+        <div class="col-4">
+            <h5 class="align-middle">Cooking schedule:</h4>
         </div>
-        <div class="col">
+        <div class="col-1">
             <a class="btn btn-primary"
                 href="{% url 'foodboard:plan_from_date' year=prev_date.year month=prev_date.month day=prev_date.day %}">&lt;</a>
-            Week of: {{current_date}}
+        </div>
+        <div class="col-6">
+            <h6 class="text-center">Week of: {{current_date}}</h5>
+        </div>
+        <div class="col-1">
             <a class="btn btn-primary"
                 href="{% url 'foodboard:plan_from_date' year=next_date.year month=next_date.month day=next_date.day %}">&gt;</a>
         </div>
     </div>
-    <div class="row row-cols-2">
+    <div class="row">
         {% for event in cook_events %}
-        <div>
+        <div class="col-4">
             {{ event.date}}
         </div>
-        <div>
+        <div class="col-8">
             {% if event.recipe %}
             {{ event.recipe}} <a href="{%url 'foodboard:cook_event' pk=event.pk %}"><i
                     class="bi bi-pencil-square"></i></a>

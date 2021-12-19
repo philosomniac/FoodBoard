@@ -39,7 +39,31 @@
         </div>
         {% endfor %}
     </div>
+    <div class="row">
+        <div class="col-8">
 
+        </div>
+        <div class="col-4">
+            <a class="btn btn-primary"
+                href="{% url 'foodboard:plan_from_date' year=current_date.year month=current_date.month day=current_date.day %}?ingredients=True">Generate
+                Shopping List</a>
+        </div>
+    </div>
+    {% if ingredient_usages %}
+
+    <div class="row">
+        <div class="col-4">
+            <h5>Shopping List</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            {% for ingredient_usage in ingredient_usages %}
+            <ul>{{ingredient_usage.amount}} {{ingredient_usage.unit}} {{ingredient_usage.ingredient.name}}</ul>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 {% else %}

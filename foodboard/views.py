@@ -1,7 +1,8 @@
 from datetime import timedelta, date
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import generic
-from .models import CookEvent, Ingredient, Recipe, User
+from django.http import Http404
+from .models import CookEvent, Ingredient, Recipe, User, IngredientUsage
 from .forms import CookEventForm, NewUserForm
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets
@@ -51,7 +52,10 @@ def cook_events(request, year=0, month=0, day=0):
     if year == 0 or month == 0 or day == 0:
         start_date = date.today()
     else:
-        start_date = date(year, month, day)
+        try:
+            start_date = date(year, month, day)
+        except ValueError:
+            raise Http404("Invalid date requested")
 
     week = []
     week.append(start_date)
@@ -70,7 +74,14 @@ def cook_events(request, year=0, month=0, day=0):
     next_date = start_date + timedelta(days=7)
     prev_date = start_date + timedelta(days=-7)
 
-    return render(request, 'foodboard/cook_events.html', {'cook_events': cook_events, 'current_date': start_date, 'next_date': next_date, 'prev_date': prev_date})
+    ingredient_usages = []
+    if request.GET.get('ingredients') == 'True':
+        recipe_ids = [
+            i.recipe.id for i in cook_events if i.recipe_id is not None]
+        ingredient_usages = IngredientUsage.objects.filter(
+            recipe__id__in=recipe_ids).order_by('ingredient__name')
+
+    return render(request, 'foodboard/cook_events.html', {'cook_events': cook_events, 'current_date': start_date, 'next_date': next_date, 'prev_date': prev_date, 'ingredient_usages': ingredient_usages})
 
 
 @login_required

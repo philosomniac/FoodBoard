@@ -1,9 +1,10 @@
 
 from recipe_scraper import persistence_handler
-from recipe_scraper.models import recipe
+from recipe_scraper.models import Recipe
 import django
+from django.db import IntegrityError
 
-
+"""quick and dirty load of scraped recipes to django db"""
 def setup():
     import os
     import sys
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     from foodboard.models import Recipe as fbRecipe
     from foodboard.models import Ingredient as fbIngredient
     from foodboard.models import IngredientUsage as fbIngredientUsage
-    from recipe_scraper.models.recipe import Recipe as scRecipe
+    from recipe_scraper.models import Recipe as scRecipe
 
     persistence = persistence_handler.PersistenceHandler()
     recipes = persistence.get_all_recipes()
@@ -37,7 +38,7 @@ if __name__ == "__main__":
 
         try:
             r.save()
-        except django.db.utils.IntegrityError:
+        except IntegrityError:
             continue
 
         for ingredient in recipe.ingredient_set.ingredients:

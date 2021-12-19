@@ -22,12 +22,11 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
+    path('', views.IndexView.as_view(), name="index"),
     path('foodboard/', include('foodboard.urls')),
     path('admin/', admin.site.urls),
-    path('', views.IndexView.as_view(), name="index"),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # path('foodboard/api/', include('foodboard.api_urls'))
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/profile/', views.profile, name="profile"),
     path('accounts/register/', views.register, name="register"),
